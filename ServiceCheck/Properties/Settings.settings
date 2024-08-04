@@ -1,0 +1,28 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ServiceCheck.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Title" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Username" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="NLSS" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="StartServiceMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Sayın {fullname}
+
+{servicename} adlı servis başlatılmıştır.</Value>
+    </Setting>
+    <Setting Name="StopServiceMessage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Sayın {fullname}
+
+{servicename} adlı servis durdurulmuştur.</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
