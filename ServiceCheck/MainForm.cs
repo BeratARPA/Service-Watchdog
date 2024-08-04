@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.ServiceProcess;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,10 +20,16 @@ namespace ServiceCheck
     {
         ConcurrentDictionary<string, (int, int, bool, bool, bool)> ServicesInFlowLayoutPanel = new ConcurrentDictionary<string, (int, int, bool, bool, bool)>();
         private NotificationHelper _notificationHelper;
+        private PerformanceCounter cpuCounter;
+        private PerformanceCounter diskCounter;
+        private PerformanceCounter networkCounter;
+        private Timer timer;
 
         public MainForm()
         {
             InitializeComponent();
+            InitializePerformanceCounters();
+            InitializeTimer();
 
             GlobalVariables.MainForm = this;
 
@@ -34,6 +41,91 @@ namespace ServiceCheck
 
             labelStatus.Text = "";
         }
+
+        #region PerformanceCounter
+        private async Task InitializePerformanceCounters()
+        {
+            cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+            diskCounter = new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total");
+            string networkName = await GetNetworkInterface();
+            networkCounter = new PerformanceCounter("Network Interface", "Bytes Total/sec", networkName);
+
+            // Perform initial reads to initialize counters
+            cpuCounter.NextValue();
+            diskCounter.NextValue();
+            networkCounter.NextValue();
+        }
+
+        private void InitializeTimer()
+        {
+            timer = new Timer();
+            timer.Interval = 250;
+            timer.Tick += async (sender, e) => await Timer_TickAsync();
+            timer.Start();
+        }
+        
+        private async Task<string> GetNetworkInterface()
+        {
+            return await Task.Run(() =>
+            {
+                var networkInterfaces = new ManagementObjectSearcher("SELECT * FROM Win32_PerfFormattedData_Tcpip_NetworkInterface");
+                foreach (var networkInterface in networkInterfaces.Get())
+                {
+                    return networkInterface["Name"].ToString();
+                }
+                return string.Empty;
+            });
+        }
+
+        private async Task<float> GetMemoryUsageAsync()
+        {
+            return await Task.Run(() =>
+            {
+                var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem");
+                foreach (var obj in searcher.Get())
+                {
+                    float totalVisibleMemory = float.Parse(obj["TotalVisibleMemorySize"].ToString()) / 1024; // MB to GB
+                    float freePhysicalMemory = float.Parse(obj["FreePhysicalMemory"].ToString()) / 1024; // MB to GB
+                    float usedMemory = totalVisibleMemory - freePhysicalMemory;
+                    float memoryUsagePercentage = (usedMemory / totalVisibleMemory) * 100;
+                    return memoryUsagePercentage;
+                }
+                return 0;
+            });
+        }
+
+        private async Task Timer_TickAsync()
+        {
+            await UpdatePerformanceDataAsync();
+        }
+
+        private async Task UpdatePerformanceDataAsync()
+        {
+            try
+            {
+                // CPU Kullanımı
+                float cpuUsage = cpuCounter.NextValue();
+                progressBarCPU.Value = (int)cpuUsage;
+                labelCPU.Text = $"CPU: {cpuUsage:F2}%";
+
+                // RAM Kullanımı
+                float ramUsage = await GetMemoryUsageAsync();
+                progressBarRAM.Value = (int)ramUsage;
+                labelRAM.Text = $"RAM: {ramUsage:F2}%";
+
+                // Disk Kullanımı
+                float diskUsage = diskCounter.NextValue();
+                progressBarDisk.Value = (int)diskUsage;
+                labelDisk.Text = $"Disk: {diskUsage:F2}%";
+
+                // Ağ Kullanımı
+                float networkUsage = networkCounter.NextValue() / (1024 * 1024); // MB/s
+                progressBarNetwork.Value = (int)networkUsage;
+                labelNetwork.Text = $"Ağ: {networkUsage:F2} MB/s";
+            }
+            catch { }
+        }
+        #endregion
 
         private void LoadServicesIntoComboBox()
         {
