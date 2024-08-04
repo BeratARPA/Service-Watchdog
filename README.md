@@ -1,56 +1,56 @@
 # Service Watchdog
 
-## Hakkında
+## About
 
-Bu proje, WinForms kullanılarak geliştirilen bir Windows servis yönetim aracıdır. Kullanıcıların Windows servislerini eklemesine ve kontrol etmesine olanak tanır; başlatma, durdurma, yeniden başlatma, durduğunda otomatik başlatma ve sıralı başlatma gibi işlevler sunar. Ayrıca, servis durumu değişikliklerinde SMS bildirimleri gönderir ve CPU, RAM, disk ve ağ kullanımı hakkında anlık bilgi gösterir.
+This project is a Windows service management tool developed using WinForms. It allows users to add and control Windows services with functionalities such as starting, stopping, restarting, automatic restarting, and sequential starting. Additionally, it sends SMS notifications on service status changes and displays real-time CPU, RAM, disk, and network information.
 
-## Ekran Görüntüsü
-![Arayüz](Screenshots/Watchdog.png)
+## Screenshot
+![Interface](Screenshots/Watchdog.png)
 
-## Özellikler
+## Features
 
-- **Servis Yönetimi**: Windows servislerini ekleme, başlatma, durdurma, yeniden başlatma ve yönetme.
-- **Otomatik Yeniden Başlatma**: Beklenmedik şekilde duran servisleri otomatik olarak yeniden başlatma.
-- **Sıralı Başlatma**: Servisleri belirli bir sırayla başlatma.
-- **SMS Bildirimleri**: Servis durumu değişikliklerinde SMS bildirimleri gönderme.
-- **Gerçek Zamanlı İzleme**: CPU, RAM, disk ve ağ kullanımı hakkında anlık bilgi gösterme.
+- **Service Management**: Add, start, stop, restart, and manage Windows services.
+- **Automatic Restart**: Automatically restart services when they stop unexpectedly.
+- **Sequential Starting**: Start services in a specified order.
+- **SMS Notifications**: Send SMS notifications on service status changes.
+- **Real-Time Monitoring**: Display real-time information on CPU, RAM, disk, and network usage.
 
-## Kullanılan Teknolojiler
+## Technologies Used
 
-- **C# WinForms**: Masaüstü uygulama arayüzü oluşturmak için kullanılan framework.
-- **.NET Framework/Core**: Arka plan mantığı ve işlemler.
-- **Üçüncü Parti Kütüphaneler**: SMS bildirimleri ve sistem izleme için kullanılan kütüphaneler.
-- **Visual Studio**: Geliştirme için kullanılan entegre geliştirme ortamı.
+- **C# WinForms**: Framework for building the desktop application interface.
+- **.NET Framework/Core**: Backend logic and operations.
+- **Third-Party Libraries**: Utilizes libraries for SMS notifications and system monitoring.
+- **Visual Studio**: Integrated development environment used for development.
 
-## Kurulum
+## Installation
 
-1. **Depoyu Klonlayın**:
+1. **Clone the Repository**:
     ```sh
     git clone https://github.com/BeratARPA/Service-Watchdog.git
     ```
-2. **Visual Studio ile Açın**: Projeyi Visual Studio'da açın.
-3. **Bağımlılıkları Yükleyin**: Gerekli bağımlılıkları geri yükleyin.
-4. **Projeyi Derleyin**: Doğru kurulum için çözümü derleyin.
-5. **Projeyi Çalıştırın**: Projeyi çalıştırmak ve servis yönetim arayüzüne erişmek için F5'e basın.
+2. **Open with Visual Studio**: Open the project in Visual Studio.
+3. **Install Dependencies**: Restore any necessary dependencies.
+4. **Build the Project**: Build the solution to ensure proper setup.
+5. **Run the Project**: Press F5 to run the project and access the service management interface.
 
-## Kullanım
+## Usage
 
-1. **Uygulamayı Başlatın**: Uygulamayı Visual Studio'dan veya çalıştırılabilir dosyadan başlatın.
-2. **Servisleri Ekleyin**: Yönetmek istediğiniz Windows servislerini ekleyin.
-3. **Servisleri Kontrol Edin**: Servisleri başlatmak, durdurmak, yeniden başlatmak veya otomatik yeniden başlatma ayarlamak için arayüzü kullanın.
-4. **Bildirimleri Ayarlayın**: Servis durumu değişiklikleri için SMS bildirimlerini yapılandırın.
-5. **Sistemi İzleyin**: Anlık CPU, RAM, disk ve ağ kullanımını görüntüleyin.
+1. **Launch the Application**: Start the application from Visual Studio or the executable.
+2. **Add Services**: Add the Windows services you want to manage.
+3. **Control Services**: Use the interface to start, stop, restart, or set up automatic restart for services.
+4. **Set Notifications**: Configure SMS notifications for service status changes.
+5. **Monitor System**: View real-time CPU, RAM, disk, and network usage.
 
-## Katkıda Bulunma
+## Contributing
 
-Katkıda bulunmak isterseniz, lütfen depoyu forklayın, bir özellik dalı oluşturun ve bir pull request gönderin.
+If you would like to contribute, please fork the repository, create a feature branch, and submit a pull request.
 
-## Lisans
+## License
 
-Bu proje MIT Lisansı altında lisanslanmıştır. Daha fazla bilgi için [LICENSE](LICENSE) dosyasına bakın.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## İletişim
+## Contact
 
-Sorularınız veya geri bildirimleriniz için benimle iletişime geçebilirsiniz:
-- **E-posta**: [beratarpa@hotmail.com](mailto:beratarpa@hotmail.com)
-- **GitHub**: [https://github.com/BeratARPA)](https://github.com/BeratARPA)
+For questions or feedback, feel free to contact me:
+- **Email**: [beratarpa@hotmail.com](mailto:beratarpa@hotmail.com)
+- **GitHub**: [https://github.com/BeratARPA](https://github.com/BeratARPA)
